@@ -9,6 +9,7 @@ public class Notification {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(columnDefinition="TEXT")
     private String message;
     private Boolean isRead;
     private LocalDateTime timestamp;
