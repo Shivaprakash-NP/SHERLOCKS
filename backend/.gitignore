@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+##scraper##
+scraper/__pycache__
+
+scraper/venv
