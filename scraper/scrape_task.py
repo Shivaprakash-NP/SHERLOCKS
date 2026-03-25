@@ -19,10 +19,8 @@ def main():
             context = browser.new_context()
             page = context.new_page()
             
-            # Navigate to URL, waiting until network connections are idle
             page.goto(url, wait_until="networkidle")
             
-            # Extract clean innerText from the body
             content = page.evaluate("() => document.body.innerText")
             
             browser.close()

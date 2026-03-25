@@ -15,8 +15,6 @@ class ScrapeResponse(BaseModel):
 @app.post("/scrape", response_model=ScrapeResponse)
 def scrape_endpoint(request: ScrapeRequest):
     try:
-        # We spawn a completely pristine Python subprocess to avoid ANY 
-        # asyncio event loop interference from Uvicorn on Windows.
         result = subprocess.run(
             [sys.executable, "scrape_task.py", request.url],
             capture_output=True,
@@ -24,7 +22,6 @@ def scrape_endpoint(request: ScrapeRequest):
             check=True
         )
         
-        # Try to parse the JSON output from our subprocess script
         try:
             data = json.loads(result.stdout.strip())
         except json.JSONDecodeError:
