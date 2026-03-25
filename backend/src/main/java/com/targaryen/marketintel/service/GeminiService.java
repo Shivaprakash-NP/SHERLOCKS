@@ -28,12 +28,13 @@ public class GeminiService {
         String url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + apiKey;
 
         // Construct System Prompt Enforcing Strict JSON Output
-        String prompt = "You are a senior Market Intelligence Analyst. Analyze the provided context and return ONLY a strict JSON object with this exact schema (no markdown blocks, no extra text):\n" +
+        String prompt = "You are a senior Market Intelligence Analyst. Analyze the provided competitor time-series diffs and extracted signals (pricing, features, messaging) and return ONLY a strict JSON object with this exact schema (no markdown blocks, no extra text):\n" +
                 "{\n" +
-                "  \"whitespace\": \"(Identify any open market gaps)\",\n" +
-                "  \"strategy\": \"(Provide strategic positioning advice)\",\n" +
-                "  \"pricing_action\": \"(Feasible counter-offer action)\",\n" +
-                "  \"evidence\": \"(Extract the exact source text that triggered this insight)\"\n" +
+                "  \"trends\": \"(Identify broader market trends and positioning shifts from the data)\",\n" +
+                "  \"whitespace\": \"(Identify any open market gaps or whitespace opportunities)\",\n" +
+                "  \"strategy\": \"(Provide strategic positioning and pricing advice)\",\n" +
+                "  \"pricing_action\": \"(Feasible counter-offer action based on competitor pricing changes)\",\n" +
+                "  \"evidence\": \"(Extract the exact source text that triggered these insights)\"\n" +
                 "}\n\nContext:\n" + context;
 
         // Build Payload according to Google Gemini REST Specs
