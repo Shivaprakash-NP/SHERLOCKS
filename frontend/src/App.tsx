@@ -122,6 +122,14 @@ export default function App() {
                     <h4 className="text-xs uppercase tracking-widest text-rose-400 font-bold mb-4 flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></div> Aggressive Pricing Action</h4>
                     <p className="text-rose-100/90 leading-relaxed font-medium text-lg">{analysis.pricing_action}</p>
                  </div>
+
+                 {analysis.evidence && (
+                     <div className="mt-4 p-5 bg-amber-500/10 rounded-xl border border-amber-500/20 border-dashed">
+                        <h4 className="text-[10px] uppercase tracking-widest text-amber-400 font-bold mb-2 flex items-center gap-2">🔍 AI Traceability / Source Evidence</h4>
+                        <p className="text-xs text-amber-200/80 font-mono italic leading-relaxed">"{analysis.evidence}"</p>
+                        <p className="text-[9px] text-amber-500/60 font-semibold mt-3 text-right uppercase tracking-widest">Source: System Market Snapshot, Extracted Live</p>
+                     </div>
+                 )}
               </div>
            )}
 
