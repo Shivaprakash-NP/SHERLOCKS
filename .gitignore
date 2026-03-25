@@ -32,5 +32,7 @@ build/
 ### VS Code ###
 .vscode/
 
-# Ignore Python virtual environments
-scraper-service/venv/
+##scraper##
+scraper/__pycache__
+
+scraper/venv
