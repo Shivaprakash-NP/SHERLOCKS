@@ -1,16 +1,16 @@
 package com.targaryen.marketintel.service;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.MediaType;
-
-import java.util.Map;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.ArrayList;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 public class GeminiService {
@@ -27,14 +27,20 @@ public class GeminiService {
 
         String url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + apiKey;
 
-        // Construct System Prompt Enforcing Strict JSON Output
-        String prompt = "You are a senior Market Intelligence Analyst. Analyze the provided competitor time-series diffs and extracted signals (pricing, features, messaging) and return ONLY a strict JSON object with this exact schema (no markdown blocks, no extra text):\n" +
+        String prompt = "You are a senior Market Intelligence Analyst. Compare the past and current website snapshots. " +
+                "You must return ONLY a strict, valid JSON object. Do NOT wrap it in markdown blockticks (```json). Ensure all strings are properly escaped.\n" +
                 "{\n" +
-                "  \"trends\": \"(Identify broader market trends and positioning shifts from the data)\",\n" +
-                "  \"whitespace\": \"(Identify any open market gaps or whitespace opportunities)\",\n" +
-                "  \"strategy\": \"(Provide strategic positioning and pricing advice)\",\n" +
-                "  \"pricing_action\": \"(Feasible counter-offer action based on competitor pricing changes)\",\n" +
-                "  \"evidence\": \"(Extract the exact source text that triggered these insights)\"\n" +
+                "  \"specific_changes\": [\n" +
+                "    {\n" +
+                "      \"category\": \"(MUST be exactly one of: PRICING, PRODUCT_LAUNCH, MESSAGING, UI_UPDATE)\",\n" +
+                "      \"old_state\": \"(What it was before, e.g., '$49/mo' or 'None')\",\n" +
+                "      \"new_state\": \"(What it is now, e.g., '$59/mo' or 'New AI Feature')\",\n" +
+                "      \"confidence_score\": \"(1-10 on how certain you are this is a strategic change)\"\n" +
+                "    }\n" +
+                "  ],\n" +
+                "  \"situational_analysis\": \"(Why did they make these changes?)\",\n" +
+                "  \"whitespace\": \"(What is the open market gap left by these changes?)\",\n" +
+                "  \"strategy\": \"(Provide positioning advice to counter this)\"\n" +
                 "}\n\nContext:\n" + context;
 
         // Build Payload according to Google Gemini REST Specs
